@@ -1,0 +1,19 @@
+{
+  "name": "shopping",
+  "version": "0.0.0",
+  "description": "a shopping api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Ming You Tsai",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-body": "^2.5.0"
+  }
+}

@@ -1,7 +1,10 @@
 import Koa from 'koa'
 import koaBody from 'koa-body'
-import DB from './model/DB'
+import { sequelize } from './library/DB'
+import DB_INIT from './model/index.js'
 import Router from './router'
+
+sequelize.sync();
 
 const app = new Koa();
 

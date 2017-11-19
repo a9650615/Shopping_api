@@ -1,6 +1,8 @@
 import Router from 'koa-router'
+import PostRouter from './router/post'
 
 const router = new Router();
+router.use(PostRouter.routes());
 
 router
   .get('/', function (ctx, next) {

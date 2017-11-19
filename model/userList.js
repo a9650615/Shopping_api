@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { sequelize } from "../library/DB";
 
-export let userlistModel = sequelize.define("userList", {
+export let userListModel = sequelize.define("userList", {
   // ID: { type: Sequelize.INTEGER },
   account: { type: Sequelize.STRING },
   password: { type: Sequelize.STRING },

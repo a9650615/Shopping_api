@@ -7,6 +7,7 @@ import ProductRouter from './router/Product'
 import ReportRouter from './router/Report'
 import SearchRouter from './router/Search'
 import ShoppingCartRouter from './router/ShoppingCart'
+import UserRouter from './router/User'
 
 const router = new Router();
 
@@ -17,6 +18,7 @@ router.use('/product', ProductRouter.routes())
 router.use('/report', ReportRouter.routes())
 router.use('/search', SearchRouter.routes())
 router.use('/shopping_cart', ShoppingCartRouter.routes())
+router.use('/user', UserRouter.routes())
 
 router
   .get('/', function (ctx, next) {

@@ -40,5 +40,5 @@ export default class DB {
   }
 }
 
-export let db = new DB('mysql', ENV.MYSQL_USER, ENV.MYSQL_PASS, ENV.MYSQL_HOST, 3306, ENV.MYSQL_DB);
+export let db = new DB('mysql', ENV.MYSQL_USER, ENV.MYSQL_PASS, ENV.MYSQL_HOST, ENV.MYSQL_PORT, ENV.MYSQL_DB);
 export let sequelize = db.Sequelize;

@@ -8,13 +8,13 @@ UserRouter
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
-    
+
     DATA = await User.select({ id: ctx.params.userId })
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
-      msg: DATA == null? err: ''
-    }, DATA? DATA.dataValues: null));
+      msg: DATA == null ? err : ''
+    }, DATA ? DATA.dataValues : null));
   })
   .post('/', async (ctx) => {
     const body = ctx.request.body
@@ -27,7 +27,7 @@ UserRouter
     }
     let err = ''
 
-    try{
+    try {
       await User.insert(DATA)
     } catch (e) {
       err = e

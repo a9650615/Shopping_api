@@ -1,10 +1,10 @@
 import Router from 'koa-router'
-import Product from '../DB_Class/commentClass'
-const CommentRouter = new Router()
+import Product from '../DB_Class/rattingClass'
+const  RattingRouter = new Router()
 
-// route path: /comment
+// route path: /Ratting
 
-CommentRouter
+RattingRouter
 .post('/', async (ctx) => {
   const body = ctx.request.body
   const DATA = {
@@ -15,7 +15,7 @@ CommentRouter
   let err = ''
 
   try {
-    await Comment.insert(DATA)
+    await Ratting.insert(DATA)
   } catch (e) {
     err = e
   }
@@ -26,7 +26,7 @@ CommentRouter
   });
 })
 
-CommentRouter
+RattingRouter
   .get('/all', (ctx) => { // 評語(評分)
     ctx.body = [{
         "content": "賣得好爛",
@@ -36,4 +36,4 @@ CommentRouter
     ]
   })
 
-export default CommentRouter
+export default RattingRouter

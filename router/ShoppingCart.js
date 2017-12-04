@@ -4,7 +4,7 @@ const ShoppingCartRouter = new Router()
 
 // route path: /shopping_cart
 
-ShoppingcartRouter
+ShoppingCartRouter
 .post('/', async (ctx) => {
   const body = ctx.request.body
   const DATA = {
@@ -26,8 +26,6 @@ ShoppingcartRouter
     msg: err
   });
 })
-
-ShoppingCartRouter
   .get('/all', (ctx) => { // 購物車商品
     ctx.body = [{
             "user_id": 1234,

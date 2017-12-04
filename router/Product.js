@@ -29,7 +29,7 @@ ProductRouter
       msg: err
     });
   })
-  .get('/all', (ctx) => { // 商品管理
+  .get('/all', async (ctx) => { // 商品管理
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'

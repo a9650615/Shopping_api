@@ -8,12 +8,12 @@ ProductRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
     const DATA = {
-      product_id: ctx.body.product_id,
+      // product_id: ctx.body.product_id,
       price: ctx.body.price,
       amount: ctx.body.amount,
       product_name: ctx.body.product_name,
       content: ctx.body.content,
-      is_empty: ctx.body.is_empty,
+      // is_empty: ctx.body.is_empty,
       is_discount: ctx.body.is_discount,
     }
     let err = ''

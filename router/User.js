@@ -30,7 +30,7 @@ UserRouter
   })
   .post('/', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
+    let DATA = {
       account: body.account,
       password: body.password,
       name: body.name,
@@ -40,14 +40,15 @@ UserRouter
     let err = ''
 
     try {
-      await User.insert(DATA)
+      DATA = await User.insert(DATA)
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
     // ctx.body = 'create user'
   })

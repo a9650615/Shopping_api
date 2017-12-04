@@ -7,26 +7,28 @@ const ProductRouter = new Router()
 ProductRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
+    let DATA = {
       // product_id: ctx.body.product_id,
-      price: ctx.body.price,
-      amount: ctx.body.amount,
-      product_name: ctx.body.product_name,
-      content: ctx.body.content,
+      price: body.price,
+      amount: body.amount,
+      product_name: body.product_name,
+      content: body.content,
       // is_empty: ctx.body.is_empty,
-      is_discount: ctx.body.is_discount,
+      is_discount: body.is_discount,
+      user_ID: body.member_id
     }
     let err = ''
 
     try {
-      await Product.insert(DATA)
+      DATA = await Product.insert(DATA)
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
   .get('/all', async (ctx) => { // 商品管理

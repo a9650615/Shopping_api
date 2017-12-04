@@ -7,7 +7,9 @@ import Router from './router'
 sequelize.sync();
 
 const app = new Koa();
+const cors = require('@koa/cors')
 
+app.use(cors())
 app.use(koaBody())
   .use(Router.routes())
   .use(Router.allowedMethods());
@@ -17,4 +19,4 @@ app.use(ctx => {
   ctx.body = 'No Match Route';
 });
 
-app.listen(3000);
+app.listen(process.env.SERVER_PORT);

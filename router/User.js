@@ -4,7 +4,19 @@ import User from '../DB_Class/userclass'
 const UserRouter = new Router()
 
 UserRouter
-  .get('/:userId', async (ctx) => {
+  .post('/login', async (ctx) => {
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+    console.log(body)
+    DATA = await User.select({ account: body.account, password: body.password })
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? DATA.dataValues : null));
+  })
+  .get('/id/:userId', async (ctx) => {
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'

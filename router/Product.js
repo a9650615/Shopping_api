@@ -11,7 +11,7 @@ ProductRouter
       // product_id: ctx.body.product_id,
       price: body.price,
       amount: body.amount,
-      product_name: body.product_name,
+      name: body.product_name,
       content: body.content,
       // is_empty: ctx.body.is_empty,
       is_discount: body.is_discount,
@@ -36,12 +36,12 @@ ProductRouter
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Product.select()
+    DATA = await Product.findAll()
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
       msg: DATA == null ? err : ''
-    }, DATA ? DATA.dataValues : null));
+    }, DATA ? {product: DATA} : null));
   })
   .get('/popular', (ctx) => { // 熱門
     ctx.body = [{

@@ -5,6 +5,10 @@ export default class DB_Function {
     return await this._model.findOne({ where });
   }
 
+  async findAll(where = {}) {
+    return await this._model.findAll({ where });
+  }
+
   async insert(value = {}) {
     return await this._model.create(value);
   }

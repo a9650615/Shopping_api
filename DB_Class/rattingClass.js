@@ -1,8 +1,21 @@
 import DB_Function from './DB_Function'
-import { rattingListModel } from "../model";
+import { rattingListModel, productListModel, userListModel } from "../model";
 
-class Comment extends DB_Function {
+
+rattingListModel.belongsTo(productListModel, {
+  foreignKey: "product_id", targetKey: "id"
+});
+rattingListModel.belongsTo(userListModel, {
+  foreignKey: "user_id", targetKey: "id"
+});
+
+
+class Ratting extends DB_Function {
   _model = rattingListModel;
+
+  async findAll(where = {}, option = {}) {
+    return await this._model.findAll({ where, include: [userListModel, productListModel] })
+  }
 }
 
-export default new Comment();
+export default new Ratting();

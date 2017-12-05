@@ -8,6 +8,7 @@ import ReportRouter from './router/Report'
 import SearchRouter from './router/Search'
 import ShoppingCartRouter from './router/ShoppingCart'
 import UserRouter from './router/User'
+import RattingRouter from './router/Ratting'
 
 const router = new Router();
 
@@ -19,6 +20,7 @@ router.use('/report', ReportRouter.routes())
 router.use('/search', SearchRouter.routes())
 router.use('/shopping_cart', ShoppingCartRouter.routes())
 router.use('/user', UserRouter.routes())
+router.use('/ratting', RattingRouter.routes())
 
 router
   .get('/', function (ctx, next) {

@@ -7,7 +7,7 @@ const RattingRouter = new Router()
 RattingRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
+    let DATA = {
       product_id: body.product_id,
       rate: body.rate,
       user_id: body.user_id,
@@ -26,27 +26,27 @@ RattingRouter
       data: DATA
     });
   })
-  .get('/:ratting_id', async (ctx) => {
+  .get('/:product_id', async (ctx) => {
     let DATA = {}
     let err = 'Not Found'
 
     try {
-      DATA = await Ratting.selectAll({ id: ctx.params.ratting_id }, {})
+      DATA = await Ratting.findAll({ product_id: ctx.params.product_id }, {})
 
     } catch (e) {
       err = e
     }
-
+    console.log(DATA)
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
       msg: DATA == null ? err : ''
-    }, DATA ? DATA.dataValues : null));
+    }, DATA ? { product: DATA } : null));
   })
   .put('/:ratting_id', async (ctx) => {
     const body = ctx.request.body
     let DATA = {
       product_id: body.product_id,
-      rate: body.role,
+      rate: body.rate,
       user_id: body.user_id,
     }
     let err = ''
@@ -59,7 +59,8 @@ RattingRouter
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
 
@@ -67,8 +68,12 @@ RattingRouter
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
+    try {
+      DATA = await Ratting.delete({ id: ctx.params.ratting_id }, {})
 
-    DATA = await Ratting.delete({ id: ctx.params.ratting_id }, {})
+    } catch (e) {
+      err = e
+    }
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,

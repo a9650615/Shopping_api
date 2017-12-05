@@ -6,5 +6,4 @@ export let commentModel = sequelize.define("commentList", {
   product_ID: { type: Sequelize.INTEGER },
   content: { type: Sequelize.TEXT },
   from: { type: Sequelize.INTEGER },
-  create_time: { type: Sequelize.DATEONLY }
 })

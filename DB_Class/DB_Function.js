@@ -1,12 +1,8 @@
 export default class DB_Function {
   _model;
 
-  async selectOne(where = {}, option = {}) {
+  async findOne(where = {}, option = {}) {
     return await this._model.findOne({ where });
-  }
-
-  async select(where = {}) {
-    return this.selectOne(where)
   }
 
   async findAll(where = {}) {

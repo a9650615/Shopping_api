@@ -7,5 +7,4 @@ export let orderListDetailModel = sequelize.define("orderListDetail", {
   product_ID: { type: Sequelize.INTEGER },
   user_ID: { type: Sequelize.INTEGER },
   amount: { type: Sequelize.INTEGER },
-  create_Time: { type: Sequelize.DATEONLY }
 })

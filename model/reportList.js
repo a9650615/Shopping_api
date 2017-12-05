@@ -6,5 +6,4 @@ export let reportModel = sequelize.define("reportList", {
   user_ID: { type: Sequelize.INTEGER },
   from: { type: Sequelize.INTEGER },
   reason: { type: Sequelize.TEXT },
-  create_Time: { type: Sequelize.DATEONLY }
 })

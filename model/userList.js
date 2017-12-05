@@ -7,6 +7,6 @@ export let userListModel = sequelize.define("userList", {
   password: { type: Sequelize.STRING },
   name: { type: Sequelize.STRING },
   role: { type: Sequelize.INTEGER },
-  text: { type: Sequelize.TEXT },
+  content: { type: Sequelize.TEXT },
   last_Login: { type: Sequelize.DATEONLY },
 })

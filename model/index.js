@@ -1,4 +1,3 @@
-export * from './banList';
 export * from './commentList';
 export * from './discountList';
 export * from './orderList';

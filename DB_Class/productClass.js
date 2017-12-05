@@ -1,15 +1,15 @@
 import DB_Function from './DB_Function'
-import { productModel, discountListModel, userListModel } from "../model";
+import { productListModel, discountListModel, userListModel } from "../model";
 
-productModel.belongsTo(discountListModel, {
+productListModel.belongsTo(discountListModel, {
   foreignKey: "discount_id", targetKey: "id"
 });
-productModel.belongsTo(userListModel, {
+productListModel.belongsTo(userListModel, {
   foreignKey: "user_id", targetKey: "id"
 });
 
 class Product extends DB_Function {
-  _model = productModel;
+  _model = productListModel;
 
   async findAllByUserid(where = {}, option = {}) {
     return await this.findAll(where, { include: [userListModel] })

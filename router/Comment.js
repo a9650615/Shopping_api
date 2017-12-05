@@ -5,56 +5,78 @@ const CommentRouter = new Router()
 // route path: /comment/product
 
 CommentRouter
-  .post('/:id', async (ctx) => {
+  .post('/', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      product_id: ctx.body.product_id,
-      content: ctx.body.content,
-      user_id: ctx.body.user_id,
+    let DATA = {
+      product_id: body.product_id,
+      content: body.content,
+      user_id: body.user_id,
     }
     let err = ''
 
     try {
-      await Comment.insert({ DATA }, {})
+      DATA = await Comment.insert(DATA, {})
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
-    })
+      msg: err,
+      data: DATA
+    });
   })
   .get('/:comment_id', async (ctx) => {
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
-
-    DATA = await Comment.selectAll({ product_id: ctx.params.product_id }, {})
+    try {
+      DATA = await Comment.findAll({ id: ctx.params.comment_id }, {})
+    } catch (e) {
+      err = e
+    }
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
-      msg: DATA == null ? err : ''
-    }, DATA ? DATA.dataValues : null));
+      msg: DATA == null ? err : DATA
+    }, {}));
   })
+  .get('/product/:product_id', async (ctx) => {
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+    try {
+      DATA = await Comment.findAllByProductid({ product_id: ctx.params.product_id }, {})
+
+    } catch (e) {
+      err = e
+    }
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : DATA
+    }, {}));
+  })
+
   .put('/:comment_id', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      product_id: ctx.body.product_id,
-      content: ctx.body.content,
-      user_id: ctx.body.user_id,
+    let DATA = {
+      product_id: body.product_id,
+      content: body.content,
+      user_id: body.user_id,
     }
     let err = ''
 
     try {
-      await Comment.update({ id: ctx.params.userId }, { DATA }, {})
+      await Comment.update({ id: ctx.params.comment_id }, DATA, {})
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
 
@@ -62,8 +84,11 @@ CommentRouter
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
-
-    DATA = await Comment.delete({ product_id: ctx.params.product_id }, {})
+    try {
+      DATA = await Comment.delete({ id: ctx.params.comment_id }, {})
+    } catch (e) {
+      err = e
+    }
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,

@@ -1,9 +1,9 @@
 import * as Sequelize from 'sequelize';
 import { sequelize } from "../library/DB";
 
-export let commentModel = sequelize.define("commentList", {
+export let commentListModel = sequelize.define("commentList", {
   //ID: { type: Sequelize.INTEGER },
-  product_ID: { type: Sequelize.INTEGER },
+  product_id: { type: Sequelize.INTEGER },
   content: { type: Sequelize.TEXT },
-  from: { type: Sequelize.INTEGER },
+  user_id: { type: Sequelize.INTEGER },
 })

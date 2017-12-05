@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import { sequelize } from "../library/DB";
 
-export let productModel = sequelize.define("productList", {
+export let productListModel = sequelize.define("productList", {
   name: { type: Sequelize.STRING },
   price: { type: Sequelize.INTEGER },
   amount: { type: Sequelize.INTEGER },

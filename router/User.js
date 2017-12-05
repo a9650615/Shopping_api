@@ -41,11 +41,7 @@ UserRouter
     let err = ''
 
     try {
-<<<<<<< Updated upstream
-      DATA = await User.insert(DATA)
-=======
       await User.update({ id: ctx.params.userId }, { DATA }, {})
->>>>>>> Stashed changes
     } catch (e) {
       err = e
     }

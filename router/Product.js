@@ -66,7 +66,7 @@ ProductRouter
       msg: DATA == null ? err : ''
     }, DATA ? {product: DATA} : null));
   })
-  .get('/popular', (ctx) => { // 熱門
+  .get('/popular', async (ctx) => { // 熱門
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'

@@ -4,7 +4,7 @@ const ShoppingCartRouter = new Router()
 
 // route path: /shopping_cart
 
-ShoppingcartRouter
+ShoppingCartRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
     const DATA = {
@@ -27,7 +27,7 @@ ShoppingcartRouter
     });
   })
 
-  .get('/:id', (ctx) => { // 商品管理
+  .get('/:id', async (ctx) => { // 商品管理
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'

@@ -5,7 +5,7 @@ const OrderRouter = new Router()
 // route path: /order/order_list
 
 OrderRouter
-  .get('/:order_list_id', (ctx) => { // 訂單
+  .get('/:order_list_id', async (ctx) => { // 訂單
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'

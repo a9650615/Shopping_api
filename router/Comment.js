@@ -42,7 +42,6 @@ CommentRouter
     }, {}));
   })
   .get('/product/:product_id', async (ctx) => {
-    const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
     try {

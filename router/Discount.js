@@ -7,63 +7,65 @@ const DiscountRouter = new Router()
 DiscountRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      product_id: ctx.body.product_id,
-      price: ctx.body.price,
-      product_name: ctx.body.product_name,
+    let DATA = {
+      product_id: body.product_id,
+      price: body.price,
     }
     let err = ''
 
     try {
-      await Discount.insert(DATA)
+      DATA = await Discount.insert(DATA)
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
-  .get('/:id', async (ctx) => {
-    const body = ctx.request.body
+  .get('/:discount_id', async (ctx) => {
     let DATA = {}
     let err = 'Not Found'
+    try {
+      DATA = await Discount.findAll({ id: ctx.params.discount_id }, {})
 
-    DATA = await Discount.selectAll({ product_id: ctx.params.product_id }, {})
+    } catch (e) {
+      err = e
+    }
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
-      msg: DATA == null ? err : ''
-    }, DATA ? DATA.dataValues : null));
+      msg: DATA == null ? err : DATA
+    }, {}));
   })
-  .put('/:id', async (ctx) => {
+  .put('/:discount_id', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      product_id: ctx.body.product_id,
-      price: ctx.body.price,
-      product_name: ctx.body.product_name,
+    let DATA = {
+      product_id: body.product_id,
+      price: body.price,
     }
     let err = ''
 
     try {
-      await Discount.update({ id: ctx.params.id }, { DATA }, {})
+      await Discount.update({ id: ctx.params.discount_id }, DATA, {})
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
 
-  .delete('/:id', async (ctx) => {
-    const body = ctx.request.body
+  .delete('/:discount_id', async (ctx) => {
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Discount.delete({ id: ctx.params.id }, {})
+    DATA = await Discount.delete({ id: ctx.params.discount_id }, {})
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,

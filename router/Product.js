@@ -46,7 +46,6 @@ ProductRouter
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
-
     DATA = await Product.select({id: ctx.params.id})
 
     ctx.body = JSON.stringify(Object.assign({
@@ -83,12 +82,12 @@ ProductRouter
     const body = ctx.request.body
     const DATA = {
       // product_id: ctx.body.product_id,
-      price: ctx.body.price,
-      amount: ctx.body.amount,
-      product_name: ctx.body.product_name,
-      content: ctx.body.content,
-      is_empty: ctx.body.is_empty,
-      is_discount: ctx.body.is_discount,
+      price: body.price,
+      amount: body.amount,
+      product_name: body.product_name,
+      content: body.content,
+      is_empty: body.is_empty,
+      is_discount: body.is_discount,
     }
     let err = ''
 

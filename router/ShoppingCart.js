@@ -16,7 +16,7 @@ ShoppingCartRouter
     let err = ''
 
     try {
-      await Shoppingcart.insert(DATA)
+      await shopping_cart.insert(DATA)
     } catch (e) {
       err = e
     }
@@ -43,7 +43,7 @@ ShoppingCartRouter
 
   .put('/:shopping_cart_id', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
+    let DATA = {
       product_id: body.product_id,
       price: body.price,
       amount: body.amount,

@@ -12,7 +12,7 @@ class Product extends DB_Function {
   _model = productListModel;
 
   async findAllByUserid(where = {}, option = {}) {
-    return await this.findAll(where, { include: [userListModel] })
+    return await this.findAll({ include: [userListModel], where })
   }
 
   async findAllWithOption(where = {}, option = {}) {

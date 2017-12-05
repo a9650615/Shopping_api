@@ -8,10 +8,10 @@ ShoppingCartRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
     const DATA = {
-      product_id: ctx.body.product_id,
-      price: ctx.body.price,
-      amount: ctx.body.amount,
-      user_id: ctx.body.user_id,
+      product_id: body.product_id,
+      price: body.price,
+      amount: body.amount,
+      user_id: body.user_id,
     }
     let err = ''
 
@@ -43,10 +43,10 @@ ShoppingCartRouter
   .put('/:id', async (ctx) => {
     const body = ctx.request.body
     const DATA = {
-      product_id: ctx.body.product_id,
-      price: ctx.body.price,
-      amount: ctx.body.amount,
-      user_id: ctx.body.user_id,
+      product_id: body.product_id,
+      price: body.price,
+      amount: body.amount,
+      user_id: body.user_id,
     }
     let err = ''
 

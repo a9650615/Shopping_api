@@ -8,29 +8,34 @@ RattingRouter
   .post('/', async (ctx) => {
     const body = ctx.request.body
     const DATA = {
-      product_id: ctx.body.product_id,
-      content: ctx.body.content,
-      user_id: ctx.body.user_id,
+      product_id: body.product_id,
+      rate: body.rate,
+      user_id: body.user_id,
     }
     let err = ''
 
     try {
-      await Ratting.insert({ DATA }, {})
+      DATA = await Ratting.insert(DATA, {})
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
   .get('/:ratting_id', async (ctx) => {
-    const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Ratting.selectAll({ product_id: ctx.params.product_id }, {})
+    try {
+      DATA = await Ratting.selectAll({ id: ctx.params.ratting_id }, {})
+
+    } catch (e) {
+      err = e
+    }
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
@@ -39,15 +44,15 @@ RattingRouter
   })
   .put('/:ratting_id', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      product_id: ctx.body.product_id,
-      content: ctx.body.content,
-      user_id: ctx.body.user_id,
+    let DATA = {
+      product_id: body.product_id,
+      rate: body.role,
+      user_id: body.user_id,
     }
     let err = ''
 
     try {
-      await Ratting.update({ product_id: ctx.params.product_id }, { DATA }, {})
+      await Ratting.update({ id: ctx.params.ratting_id }, DATA, {})
     } catch (e) {
       err = e
     }
@@ -63,7 +68,7 @@ RattingRouter
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Ratting.delete({ product_id: ctx.params.product_id }, {})
+    DATA = await Ratting.delete({ id: ctx.params.ratting_id }, {})
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,

@@ -5,12 +5,11 @@ const ReportRouter = new Router()
 // route path: /report
 
 ReportRouter
-  .get('/:member_Id', async (ctx) => {
-    const body = ctx.request.body
+  .get('/:reportid', async (ctx) => {
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await report.selectOne({ member_Id: ctx.params.member_Id }, {})
+    DATA = await report.findOne({ id: ctx.params.reportid }, {})
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
@@ -20,21 +19,23 @@ ReportRouter
 
   .post('/', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      Prosecuted_id: ctx.body.Prosecuted_id,
-      reason: ctx.body.reason,
+    let DATA = {
+      user_id: body.user_id,
+      reason: body.reason,
+      from_id: body.from_id
     }
     let err = ''
 
     try {
-      await report.insert({ DATA }, {})
+      DATA = await report.insert(DATA, {})
     } catch (e) {
       err = e
     }
 
     ctx.body = JSON.stringify({
       status: !err,
-      msg: err
+      msg: err,
+      data: DATA
     });
   })
 export default ReportRouter

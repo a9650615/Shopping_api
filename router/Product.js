@@ -86,7 +86,7 @@ ProductRouter
       amount: body.amount,
       product_name: body.product_name,
       content: body.content,
-      is_empty: body.is_empty,
+      // is_empty: body.is_empty,
       is_discount: body.is_discount,
     }
     let err = ''

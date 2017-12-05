@@ -24,7 +24,6 @@ ProductRouter
     } catch (e) {
       err = e
     }
-
     ctx.body = JSON.stringify({
       status: !err,
       msg: err,
@@ -41,7 +40,7 @@ ProductRouter
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
       msg: DATA == null ? err : ''
-    }, DATA ? {product: DATA} : null));
+    }, DATA ? { product: DATA } : null));
   })
   .get('/:id', async (ctx) => { // 商品管理
     const body = ctx.request.body
@@ -68,12 +67,56 @@ ProductRouter
     }, DATA ? {product: DATA} : null));
   })
   .get('/popular', (ctx) => { // 熱門
-    ctx.body = [{
-      "product_id": 123456,
-      "price": 123
-    }
-    ]
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+
+    DATA = await Product.selectAll({}, { limit: 10, order: ["create_Time", DESC] })
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? DATA.dataValues : null));
   })
+
+  .put('/:product_id', async (ctx) => {
+    const body = ctx.request.body
+    const DATA = {
+      // product_id: ctx.body.product_id,
+      price: ctx.body.price,
+      amount: ctx.body.amount,
+      product_name: ctx.body.product_name,
+      content: ctx.body.content,
+      is_empty: ctx.body.is_empty,
+      is_discount: ctx.body.is_discount,
+    }
+    let err = ''
+
+    try {
+      await Product.update({ id: ctx.params.product_id }, { DATA }, {})
+    } catch (e) {
+      err = e
+    }
+
+    ctx.body = JSON.stringify({
+      status: !err,
+      msg: err
+    });
+  })
+
+  .delete('/:product_id', async (ctx) => {
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+
+    DATA = await Product.delete({ id: ctx.params.product_id }, {})
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? DATA.dataValues : null));
+  })
+
 
 
 export default ProductRouter

@@ -1,7 +1,8 @@
 import Router from 'koa-router'
 import User from '../DB_Class/userclass'
-
 const UserRouter = new Router()
+
+// route path: /management
 
 UserRouter
   .post('/login', async (ctx) => {
@@ -21,26 +22,30 @@ UserRouter
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await User.select({ id: ctx.params.userId })
+    DATA = await User.selectOne({ id: ctx.params.userId }, {})
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
       msg: DATA == null ? err : ''
     }, DATA ? DATA.dataValues : null));
   })
-  .post('/', async (ctx) => {
+  .put('/:id', async (ctx) => {
     const body = ctx.request.body
     let DATA = {
       account: body.account,
       password: body.password,
       name: body.name,
-      role: 3,
+      role: body.role,
       text: body.info
     }
     let err = ''
 
     try {
+<<<<<<< Updated upstream
       DATA = await User.insert(DATA)
+=======
+      await User.update({ id: ctx.params.userId }, { DATA }, {})
+>>>>>>> Stashed changes
     } catch (e) {
       err = e
     }
@@ -50,7 +55,21 @@ UserRouter
       msg: err,
       data: DATA
     });
-    // ctx.body = 'create user'
   })
+
+  .delete('/:memberId', async (ctx) => {
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+
+    DATA = await User.delete({ id: ctx.params.userId }, {})
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? DATA.dataValues : null));
+  })
+
+
 
 export default UserRouter

@@ -1,7 +1,7 @@
 export default class DB_Function {
   _model;
 
-  async select(where = {}) {
+  async selectOne(where = {}, option = {}) {
     return await this._model.findOne({ where });
   }
 
@@ -13,11 +13,11 @@ export default class DB_Function {
     return await this._model.create(value);
   }
 
-  async delete(where = {}) {
+  async delete(where = {}, option = {}) {
     return await this._model.destroy({ where });
   }
 
-  async update(where = {}, value = {}) {
+  async update(where = {}, value = {}, option = {}) {
     return await this._model.update(value, { where });
   }
 }

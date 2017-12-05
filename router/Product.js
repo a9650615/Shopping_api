@@ -43,6 +43,18 @@ ProductRouter
       msg: DATA == null ? err : ''
     }, DATA ? {product: DATA} : null));
   })
+  .get('/:id', async (ctx) => { // 商品管理
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+
+    DATA = await Product.select({id: ctx.params.id})
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? {product: DATA} : null));
+  })
   .get('/popular', (ctx) => { // 熱門
     ctx.body = [{
       "product_id": 123456,

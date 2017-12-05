@@ -41,7 +41,7 @@ ProductRouter
       msg: DATA == null ? err : ''
     }, DATA ? { product: DATA } : null));
   })
-  .get('/:id', async (ctx) => { // 商品管理
+  .get('/id/:id', async (ctx) => { // 商品管理
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
@@ -57,7 +57,7 @@ ProductRouter
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Product.findAll({ user_ID: ctx.params.userid })
+    DATA = await Product.findAllByUserid({ user_ID: ctx.params.userid })
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
@@ -69,29 +69,27 @@ ProductRouter
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Product.findAll({}, { limit: 10, order: ["create_Time", DESC] })
+    DATA = await Product.findAllWithOption()
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
       msg: DATA == null ? err : ''
-    }, DATA ? DATA.dataValues : null));
+    }, DATA ? { product: DATA } : null));
   })
 
-  .put('/:product_id', async (ctx) => {
+  .put('/:productid', async (ctx) => {
     const body = ctx.request.body
-    const DATA = {
-      // product_id: ctx.body.product_id,
+    let DATA = {
       price: body.price,
       amount: body.amount,
-      product_name: body.product_name,
+      name: body.name,
       content: body.content,
       // is_empty: body.is_empty,
-      is_discount: body.is_discount,
     }
     let err = ''
 
     try {
-      await Product.update({ id: ctx.params.product_id }, { DATA }, {})
+      DATA = await Product.update({ id: ctx.params.productid }, DATA, {})
     } catch (e) {
       err = e
     }
@@ -102,12 +100,12 @@ ProductRouter
     });
   })
 
-  .delete('/:product_id', async (ctx) => {
+  .delete('/:productid', async (ctx) => {
     const body = ctx.request.body
     let DATA = {}
     let err = 'Not Found'
 
-    DATA = await Product.delete({ id: ctx.params.product_id }, {})
+    DATA = await Product.delete({ id: ctx.params.productid }, {})
 
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,

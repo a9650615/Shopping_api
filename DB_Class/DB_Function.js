@@ -2,14 +2,14 @@ export default class DB_Function {
   _model;
 
   async findOne(where = {}, option = {}) {
-    return await this._model.findOne({ where });
+    return await this._model.findOne(Object.assign({ where }, option));
   }
 
-  async findAll(where = {}) {
-    return await this._model.findAll({ where });
+  async findAll(where = {}, option = {}) {
+    return await this._model.findAll(Object.assign({ where }, option));
   }
 
-  async insert(value = {}) {
+  async insert(value = {}, option = {}) {
     return await this._model.create(value);
   }
 

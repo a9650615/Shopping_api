@@ -11,8 +11,12 @@ productModel.belongsTo(userListModel, {
 class Product extends DB_Function {
   _model = productModel;
 
-  async findOne(where = {}, option = {}) {
-    return await this._model.findOne({ where });
+  async findAllByUserid(where = {}, option = {}) {
+    return await this.findAll(where, { include: [userListModel] })
+  }
+
+  async findAllWithOption(where = {}, option = {}) {
+    return await this._model.findAll({ include: [userListModel], limit: 10, order: [["createdAt", "DESC"]] })
   }
 }
 

@@ -1,5 +1,6 @@
 import Router from 'koa-router'
 import Order from '../DB_Class/orderClass'
+import OrderDetail from '../DB_Class/orderDetailClass'
 const OrderRouter = new Router()
 
 // route path: /order/order_list
@@ -10,8 +11,12 @@ OrderRouter
     let DATA = {
       price: body.price,
       state: body.state,
-      user_id: body.user_id,
-      content: body.content,
+      user_id: body.user_id
+    }
+    let info = {
+      order_list_id: null,
+      price: body.price,
+      state: body.state,
       user_id: body.user_id
     }
     let err = ''
@@ -22,7 +27,20 @@ OrderRouter
     //   product: [{ amount: 1, product_id: 2 }, { amount: 1, product_id: 2 }, { amount: 1, product_id: 2}]
     // }
     try {
-      //DATA = await Product.insert(DATA)
+      let request = await Order.insert(DATA);
+      info.order_list_id = request.id;
+      body.product.forEach(async (element) => {
+        console.log(element)
+        element = JSON.parse(element)
+        let product_data = {
+          order_List_id: info.order_list_id,
+          product_id: element.product_id,
+          amount: element.amount
+        }
+        let tmp = await OrderDetail.insert(product_data)
+      });
+      console.log(request);
+      DATA = request;
       //body.product.forEach(async (element) => {
       //  await Product.insert(Object.assign(element, { order_list_id: DATA.id }))
       //})

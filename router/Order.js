@@ -62,8 +62,9 @@ OrderRouter
     console.log(DATA)
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
-      msg: DATA == null ? err : ''
-    }, DATA ? DATA.dataValues : null));
+      msg: DATA == null ? err : '',
+      data: DATA ? DATA : null
+    }));
   })
 
 export default OrderRouter

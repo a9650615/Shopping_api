@@ -37,7 +37,7 @@ UserRouter
     let err = 'Not Found'
     console.log(body)
     DATA = await User.findOne({ account: body.account, password: body.password })
-    DATA.password = null;
+    //DATA.password = null;
     ctx.body = JSON.stringify(Object.assign({
       status: DATA != null,
       msg: DATA == null ? err : ''

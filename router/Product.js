@@ -52,6 +52,17 @@ ProductRouter
       msg: DATA == null ? err : ''
     }, DATA ? { product: DATA } : null));
   })
+  .get('/search/:name', async (ctx) => { // 商品搜尋
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+    DATA = await Product.findAll({name: { $like: `%${ctx.params.name}%` }})
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? { product: DATA } : null));
+  })
   .get('/user/:user_id', async (ctx) => { // 商品管理
     const body = ctx.request.body
     let DATA = {}

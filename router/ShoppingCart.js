@@ -80,4 +80,17 @@ ShoppingCartRouter
     }, DATA ? DATA.dataValues : null));
   })
 
+  .delete('/id/:id', async (ctx) => {
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+
+    DATA = await shopping_cart.delete({ id: ctx.params.id }, {})
+
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : ''
+    }, DATA ? DATA.dataValues : null));
+  })
+
 export default ShoppingCartRouter

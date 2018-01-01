@@ -66,5 +66,17 @@ OrderRouter
       data: DATA ? DATA : null
     }));
   })
+  .get('/user/:user_id', async (ctx) => { // get user 訂單
+    const body = ctx.request.body
+    let DATA = {}
+    let err = 'Not Found'
+
+    DATA = await Order.findAll({user_id: ctx.params.user_id})
+    ctx.body = JSON.stringify(Object.assign({
+      status: DATA != null,
+      msg: DATA == null ? err : '',
+      data: DATA ? DATA : null
+    }));
+  })
 
 export default OrderRouter

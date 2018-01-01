@@ -10,18 +10,20 @@ class Order extends DB_Function {
 
   async Select(id) {
     return await sequelize.query(`
-        SELECT * FROM 
+        SELECT * FROM
         (
           (SELECT order_list_id, product_id, amount FROM orderListDetails where order_list_id=? ) AS A
-          )
-          LEFT OUTER JOIN
-          (
-          select orderLists.id, orderLists.price,orderLists.user_id,
-          (select name from userLists where id=orderLists.id) as user
-          from orderLists
-        ) AS B ON A.product_id = B.id GROUP BY A.product_id
+        )
+        INNER JOIN productLists ON productLists.id = A.product_id
+        
       `,
       { replacements: [id], type: sequelize.QueryTypes.SELECT })
+      // RIGHT JOIN
+      //   (
+      //     select orderLists.id, orderLists.price,orderLists.user_id,
+      //     (select name from userLists where id=orderLists.user_id) as user
+      //     from orderLists
+      //   ) AS B ON A.product_id = B.id GROUP BY A.product_id
   }
 }
 

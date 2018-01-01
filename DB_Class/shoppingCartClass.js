@@ -12,7 +12,7 @@ class ShoppingCart extends DB_Function {
   _model = shoppingCartModel;
 
   async findAll(where = {}, option = {}) {
-    return await this._model.findAll({ include: [productListModel, userListModel], where })
+    return await this._model.findAll({ include: [productListModel, userListModel], where }, option)
   }
 }
 

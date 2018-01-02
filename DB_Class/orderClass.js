@@ -12,7 +12,7 @@ class Order extends DB_Function {
     return await sequelize.query(`
         SELECT * FROM
         (
-          (SELECT order_list_id, product_id, amount FROM orderListDetails where order_list_id=? ) AS A
+          (SELECT order_list_id, product_id, amount as buy_amount FROM orderListDetails where order_list_id=? ) AS A
         )
         INNER JOIN productLists ON productLists.id = A.product_id
         
